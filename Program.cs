@@ -7,10 +7,10 @@
             Console.WriteLine("\t\tWelcome to");
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\t\t\tNumb3rs G4m3");
+            Console.WriteLine("\t\t\tNumb3r Gu3ss3r");
             Console.ResetColor();
             Console.WriteLine("\t\t\t\tby Emma Karlholm");
-                
+            
         }
     }
 }
