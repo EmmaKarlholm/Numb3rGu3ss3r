@@ -127,10 +127,11 @@ namespace Numb3rGu3ss3r
 
 
 
+        // Display a response to user if the input was way too high.
         public static void GuessWasTooHigh()
         {
             Random random = new Random();
-            int outputText = random.Next(0, 6);
+            int outputText = random.Next(0, 5);
             switch (outputText)
             {
                 case 0:
@@ -158,10 +159,11 @@ namespace Numb3rGu3ss3r
 
 
 
+        // Display a response to user if the input was way too low.
         public static void GuessWasTooLow()
         {
             Random random = new Random();
-            int outputText = random.Next(0, 6);
+            int outputText = random.Next(0, 5);
             switch (outputText)
             {
                 case 0:
@@ -188,11 +190,11 @@ namespace Numb3rGu3ss3r
 
 
 
-
+        // Display a response to user if the input was off by one in either direction.
         public static void GuessWasClose()
         {
             Random random = new Random();
-            int outputText = random.Next(0, 6);
+            int outputText = random.Next(0, 5);
             switch (outputText)
             {
                 case 0:
@@ -208,7 +210,7 @@ namespace Numb3rGu3ss3r
                     break;
 
                 case 3:
-                    Console.WriteLine("You're nearly at the number, so push it!\n");
+                    Console.WriteLine("You're nearly at the number, so push it!\n"); // This is a Scarface reference. Sue me.
                     break;
 
                 case 4:
