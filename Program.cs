@@ -104,22 +104,36 @@ namespace Numb3rGu3ss3r
                             }
                             else
                             {
-                                if (guess < correctNumber)
+                                bool wasFairGuess = true;
+
+                                // If the user guesses above the stated maximum guessing number, the guess
+                                // was not fair and the user should not be penalised by losing a turn.
+                                if (guess > maximumNumber)
+                                {
+                                    GuessWasOutOfRange(maximumNumber);
+                                    wasFairGuess = false;
+                                }
+
+                                if ((guess < correctNumber) && (wasFairGuess == true))
                                 {
                                     if (guess == correctNumber - 1)
                                     { GuessWasClose(); }
                                     else { GuessWasTooLow(); }
                                 }
 
-                                if (guess > correctNumber)
+                                if ((guess > correctNumber) && (wasFairGuess == true))
                                 {
                                     if (guess == correctNumber + 1)
                                     { GuessWasClose(); }
                                     else { GuessWasTooHigh(); }
                                 }
 
-
-                                attempts++;
+                                // Lower the amount of guesses the user has available since their guess
+                                // was fair but wrong.
+                                if (wasFairGuess == true)
+                                { 
+                                    attempts++;
+                                }
                             }
 
                         }
@@ -185,7 +199,7 @@ namespace Numb3rGu3ss3r
         {
             Console.Write($"\tTry a number (try #{attempts+1}): ");
             string? userInput = Console.ReadLine();
-
+            Console.WriteLine();
             // Initialise variables.
             int guess = 0;
             bool wasConvertable = true;
@@ -295,6 +309,38 @@ namespace Numb3rGu3ss3r
                     Console.WriteLine("The number I'm thinking of could be your neighbour.\n");
                     break;
             }
+        }
+
+
+        
+        // Display a response to user if the input was higher than the maximum number.
+        public static void GuessWasOutOfRange(int maximumNumber)
+        {
+            Random random = new Random();
+            int outputText = random.Next(0, 5);
+            switch (outputText)
+            {
+                case 0:
+                    Console.WriteLine($"That number is above what you let me guess! You told me to guess a number between 1-{maximumNumber}\n"); 
+                    break;
+
+                case 1:
+                    Console.WriteLine($"Weren't you guessing a number between 1 and {maximumNumber}?\n");
+                    break;
+
+                case 2:
+                    Console.WriteLine($"You didn't let me go beyond {maximumNumber}, friend.\n");
+                    break;
+
+                case 3:
+                    Console.WriteLine($"{maximumNumber} is as far as we go. Try again!\n");
+                    break;
+
+                case 4:
+                    Console.WriteLine($"Your guess was higher than the possible maximum. If you forgot, you told me to pick a number between one and {maximumNumber}.\n");
+                    break;
+            }
+            
         }
 
 
