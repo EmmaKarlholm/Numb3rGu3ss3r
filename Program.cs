@@ -7,113 +7,150 @@ namespace Numb3rGu3ss3r
     {
         static void Main(string[] args)
         {
-            // Set initial variables.
-            bool testingMode = false; // Set to FALSE before upload to GitHub.
-            int attempts = 0;
-            bool numberWasGuessed = false;
-
-            // Draw title screen, complete with pretty colours.
-            Console.WriteLine("\t\tWelcome to");
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\t\t\tNumb3r Gu3ss3r");
-            Console.ResetColor();
-            Console.WriteLine("\t\t\t\tby Emma Karlholm");
-            Console.WriteLine("\n\nWelcome! I'm thinking of a number. Care to guess which one? You get five tries.");
-
-            // Set the correctNumber to be a number between 1 and 20
-            Random random = new Random();
-            int correctNumber = (random.Next(0, 20) + 1); // The 20 here could be made into a variable in future updates.
-
-            // Display the correct number for testing reasons?
-            if (testingMode == true) { Console.WriteLine("correctNumber is " + correctNumber); }
-
-
-            // Prepare for user inputs.
-            while (numberWasGuessed == false)
+            bool quittingGame = false;
+            while (quittingGame == false)
             {
-                while (attempts < 5)
+                // Set initial variables.
+                bool testingMode = false; // Set to FALSE before upload to GitHub.
+                int attempts = 0;
+                bool numberWasGuessed = false;
+
+                // Draw title screen, complete with pretty colours.
+                Console.WriteLine("\t\tWelcome to");
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("\t\t\tNumb3r Gu3ss3r");
+                Console.ResetColor();
+                Console.WriteLine("\t\t\t\tby Emma Karlholm");
+                Console.WriteLine("\n\nWelcome! I'm thinking of a number. Care to guess which one? You get five tries.");
+
+                // Set the correctNumber to be a number between 1 and 20
+                Random random = new Random();
+                int correctNumber = (random.Next(0, 20) + 1); // The 20 here could be made into a variable in future updates.
+
+                // Display the correct number for testing reasons?
+                if (testingMode == true) { Console.WriteLine("correctNumber is " + correctNumber); }
+
+
+                // Prepare for user inputs.
+                while (numberWasGuessed == false)
                 {
-                    // Using this tuple makes the code unnecessarily difficult to read rather than just handling
-                    // everything with a while loop within the NumberInput method like I have done in previous
-                    // assignments. But I'm doing this to experiment and to learn just as much as  code to show off
-                    // my code, so I want to handle a tuple today!
-                    //
-                    // First time I use "var" willingly as a consequnce of this tuple, because I need to read an
-                    // integer and a boolean value returned from method. If the logic was handled within the
-                    // NumberInput method instead, I wouldn't need to receive two data types (or two variables to
-                    // begin with.
-                    var (guess, wasConvertable) = NumberInput(attempts);
-                    if (wasConvertable == true)
+                    while (attempts < 5)
                     {
-                        if (guess == correctNumber)
+                        // Using this tuple makes the code unnecessarily difficult to read rather than just handling
+                        // everything with a while loop within the NumberInput method like I have done in previous
+                        // assignments. But I'm doing this to experiment and to learn just as much as  code to show off
+                        // my code, so I want to handle a tuple today!
+                        //
+                        // First time I use "var" willingly as a consequnce of this tuple, because I need to read an
+                        // integer and a boolean value returned from method. If the logic was handled within the
+                        // NumberInput method instead, I wouldn't need to receive two data types (or two variables to
+                        // begin with.
+                        var (guess, wasConvertable) = NumberInput(attempts);
+                        if (wasConvertable == true)
                         {
-                            string attemptsString = "";
-                            switch (attempts)
+                            if (guess == correctNumber)
                             {
-                                case 0: // attempt 1
-                                    attemptsString = "first";
-                                    break;
-                                case 1: // attempt 2
-                                    attemptsString = "second";
-                                    break;
-                                case 2: // attempt 3
-                                    attemptsString = "third";
-                                    break;
-                                case 3: // attempt 4
-                                    attemptsString = "fourth";
-                                    break;
-                                case 4: // attempt 5
-                                    attemptsString = "fifth";
-                                    break;
+                                string attemptsString = "";
+                                switch (attempts)
+                                {
+                                    case 0: // attempt 1
+                                        attemptsString = "first";
+                                        break;
+                                    case 1: // attempt 2
+                                        attemptsString = "second";
+                                        break;
+                                    case 2: // attempt 3
+                                        attemptsString = "third";
+                                        break;
+                                    case 3: // attempt 4
+                                        attemptsString = "fourth";
+                                        break;
+                                    case 4: // attempt 5
+                                        attemptsString = "fifth";
+                                        break;
+                                }
+                                // Number was guessed, victory state reached!
+                                Console.Clear();
+                                Console.WriteLine($"\n\tCongratulations! You guessed my number of {correctNumber} on your {attemptsString} try!\n\n");
+                                Thread.Sleep(500);
+                                PressAnyKeyToContinue();
+                                numberWasGuessed = true;
+                                break;
                             }
-                            // Number was guessed, victory state reached!
-                            Console.WriteLine($"Congratulations! You guessed my number of {correctNumber} on your {attemptsString} try!\n");
-                            numberWasGuessed = true;
-                            break;
-                        }
-                        else
-                        {
-                            if (guess < correctNumber)
+                            else
                             {
-                                if (guess == correctNumber - 1)
-                                { GuessWasClose(); }
-                                else { GuessWasTooLow(); }
+                                if (guess < correctNumber)
+                                {
+                                    if (guess == correctNumber - 1)
+                                    { GuessWasClose(); }
+                                    else { GuessWasTooLow(); }
+                                }
+
+                                if (guess > correctNumber)
+                                {
+                                    if (guess == correctNumber + 1)
+                                    { GuessWasClose(); }
+                                    else { GuessWasTooHigh(); }
+                                }
+
+                                attempts++;
                             }
 
-                            if (guess > correctNumber)
-                            {
-                                if (guess == correctNumber + 1)
-                                { GuessWasClose(); }
-                                else { GuessWasTooHigh(); }
-                            }
-                            
-                            attempts++;
                         }
+                    }
 
+                    // Five attempts are over, or the correct guess has been made
+                    if (numberWasGuessed == true)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.Write("\n\nI'm sorry, but.");
+                        Thread.Sleep(400);
+                        Console.Write(".");
+                        Thread.Sleep(400);
+                        Console.Write(".");
+                        Thread.Sleep(1000);
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\n\t\t\t\t\tGame Over!\n\n\n");
+                        Console.ResetColor();
+                        Thread.Sleep(1500);
+                        PressAnyKeyToContinue();
+                        break;
                     }
                 }
 
-                // Five attempts are over, or the correct guess has been made
-                if (numberWasGuessed == true)
+                // End of gameplay state reached. Try again?
+                while (true)
                 {
-                    break;
-                }
-                else
-                {
-                Console.Write("\n\nI'm sorry, but.");
-                Thread.Sleep(400);
-                Console.Write(".");
-                Thread.Sleep(400);
-                Console.Write(".");
-                Thread.Sleep(1000);
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("\n\t\t\t\t\tGame Over!");
-                Console.ResetColor();
-                break;
+                    Console.Clear();
+                    Console.Write("\n\n\n\t\tWould you like to play again? (y/n) ");
+                    string? quitGameQuestion = Console.ReadLine();
+                    if (quitGameQuestion == "y" || quitGameQuestion == "yes")
+                    {
+                        Console.Clear();
+                        break;
+                    }
+                    else if (quitGameQuestion == "n" || quitGameQuestion == "no")
+                    {
+                        quittingGame = true;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry, I did not understand your input.");
+                        Thread.Sleep(1500);
+                    }
+
                 }
             }
+
+            // User has chosen not to continue playing.
+            return; // Exiting in Main exits the application.
         }
 
 
@@ -233,6 +270,15 @@ namespace Numb3rGu3ss3r
                     Console.WriteLine("The number I'm thinking of could be your neighbour.\n");
                     break;
             }
+        }
+
+
+
+        // Simple method to await user input for pausing purposes.
+        public static void PressAnyKeyToContinue()
+        {
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }
