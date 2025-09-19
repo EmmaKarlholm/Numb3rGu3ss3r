@@ -114,6 +114,12 @@ namespace Numb3rGu3ss3r
                                     wasFairGuess = false;
                                 }
 
+                                if (guess <= 0)
+                                {
+                                    GuessWasBelowRange();
+                                    wasFairGuess = false;
+                                }
+
                                 if ((guess < correctNumber) && (wasFairGuess == true))
                                 {
                                     if (guess == correctNumber - 1)
@@ -341,6 +347,38 @@ namespace Numb3rGu3ss3r
                     break;
             }
             
+        }
+
+
+
+        // Display a response to user if the input was lower than 1.
+        public static void GuessWasBelowRange()
+        {
+            Random random = new Random();
+            int outputText = random.Next(0, 5);
+            switch (outputText)
+            {
+                case 0:
+                    Console.WriteLine("Try a number of one or above.\n");
+                    break;
+
+                case 1:
+                    Console.WriteLine("That's below one.\n");
+                    break;
+
+                case 2:
+                    Console.WriteLine("Listen, friend, do you know what between 1 and another number means?\n");
+                    break;
+
+                case 3:
+                    Console.WriteLine("You can't go for zero or below.\n");
+                    break;
+
+                case 4:
+                    Console.WriteLine("Please choose a legal number. That was below the number range we agreed upon.\n");
+                    break;
+            }
+
         }
 
 
