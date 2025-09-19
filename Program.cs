@@ -7,8 +7,10 @@ namespace Numb3rGu3ss3r
     {
         static void Main(string[] args)
         {
-            bool testingMode = false; // Set to FALSE before compilation.
-
+            // Set initial variables.
+            bool testingMode = false; // Set to FALSE before upload to GitHub.
+            int attempts = 0;
+            bool numberWasGuessed = false;
 
             // Draw title screen, complete with pretty colours.
             Console.WriteLine("\t\tWelcome to");
@@ -28,8 +30,6 @@ namespace Numb3rGu3ss3r
 
 
             // Prepare for user inputs.
-            int attempts = 0;
-            bool numberWasGuessed = false;
             while (numberWasGuessed == false)
             {
                 while (attempts < 5)
@@ -67,8 +67,10 @@ namespace Numb3rGu3ss3r
                                     attemptsString = "fifth";
                                     break;
                             }
+                            // Number was guessed, victory state reached!
                             Console.WriteLine($"Congratulations! You guessed my number of {correctNumber} on your {attemptsString} try!\n");
-                            return; // Exits program since the Main method is the top method.
+                            numberWasGuessed = true;
+                            break;
                         }
                         else
                         {
@@ -91,13 +93,27 @@ namespace Numb3rGu3ss3r
 
                     }
                 }
-                
-            }
-            //
-            // User has found the correctNumber.
-            //
 
-            Console.WriteLine("End of code reached.");
+                // Five attempts are over, or the correct guess has been made
+                if (numberWasGuessed == true)
+                {
+                    break;
+                }
+                else
+                {
+                Console.Write("\n\nI'm sorry, but.");
+                Thread.Sleep(400);
+                Console.Write(".");
+                Thread.Sleep(400);
+                Console.Write(".");
+                Thread.Sleep(1000);
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("\n\t\t\t\t\tGame Over!");
+                Console.ResetColor();
+                break;
+                }
+            }
         }
 
 
