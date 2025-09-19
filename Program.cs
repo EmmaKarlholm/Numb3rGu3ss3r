@@ -7,26 +7,45 @@ namespace Numb3rGu3ss3r
     {
         static void Main(string[] args)
         {
+            bool testingMode = false; // Set to FALSE before upload to GitHub or compilation.
             bool quittingGame = false;
             while (quittingGame == false)
             {
-                // Set initial variables.
-                bool testingMode = false; // Set to FALSE before upload to GitHub.
+                // Set initial gameplay variables.
                 int attempts = 0;
                 bool numberWasGuessed = false;
 
                 // Draw title screen, complete with pretty colours.
-                Console.WriteLine("\t\tWelcome to");
+                Console.WriteLine("\n\t\tWelcome to");
                 Console.BackgroundColor = ConsoleColor.Cyan;
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.WriteLine("\t\t\tNumb3r Gu3ss3r");
                 Console.ResetColor();
                 Console.WriteLine("\t\t\t\tby Emma Karlholm");
-                Console.WriteLine("\n\nWelcome! I'm thinking of a number. Care to guess which one? You get five tries.");
+                Console.WriteLine("\n\nWelcome! I will be thinking of a number in a range between one(1) and" +
+                    "a number of your choosing.\n\nYou will have five(5) tries to guess the number I chose.\n");
+
+
+                // Allow user to input number to set their own difficulty as gradual as they wish.
+                int maximumNumber = 0;
+                while (maximumNumber == 0)
+                {
+                    Console.Write("Please tell me the upper range I will guess for. My recommendation is 20: ");
+                    string? userInputMaxGuess = Console.ReadLine();
+                    int.TryParse(userInputMaxGuess, out maximumNumber);
+                    if (maximumNumber < 2 || maximumNumber == 0)
+                    {
+                        Console.WriteLine("Sorry, try a number over one(1).\n");
+                    }
+                }
+
+
+
+                //Console.WriteLine("\n\nWelcome! I'm thinking of a number. Care to guess which one? You get five tries.");
 
                 // Set the correctNumber to be a number between 1 and 20
                 Random random = new Random();
-                int correctNumber = (random.Next(0, 20) + 1); // The 20 here could be made into a variable in future updates.
+                int correctNumber = (random.Next(0, maximumNumber) + 1); // The 20 here could be made into a variable in future updates.
 
                 // Display the correct number for testing reasons?
                 if (testingMode == true) { Console.WriteLine("correctNumber is " + correctNumber); }
