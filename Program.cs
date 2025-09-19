@@ -7,7 +7,7 @@ namespace Numb3rGu3ss3r
     {
         static void Main(string[] args)
         {
-            bool testingMode = true; // Set to FALSE before compilation.
+            bool testingMode = false; // Set to FALSE before compilation.
 
 
             // Draw title screen, complete with pretty colours.
