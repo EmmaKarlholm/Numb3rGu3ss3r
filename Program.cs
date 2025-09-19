@@ -11,8 +11,9 @@ namespace Numb3rGu3ss3r
             bool quittingGame = false;
             while (quittingGame == false)
             {
-                // Set initial gameplay variables.
+                // Set initial gameplay variables which will reset when the game resets.
                 int attempts = 0;
+                bool acceptedMaximumNumber = false;
                 bool numberWasGuessed = false;
 
                 // Draw title screen, complete with pretty colours.
@@ -22,20 +23,24 @@ namespace Numb3rGu3ss3r
                 Console.WriteLine("\t\t\tNumb3r Gu3ss3r");
                 Console.ResetColor();
                 Console.WriteLine("\t\t\t\tby Emma Karlholm");
-                Console.WriteLine("\n\nWelcome! I will be thinking of a number in a range between one(1) and" +
+                Console.WriteLine("\n\nWelcome! I will be thinking of a number in a range between one(1) and " +
                     "a number of your choosing.\n\nYou will have five(5) tries to guess the number I chose.\n");
 
 
                 // Allow user to input number to set their own difficulty as gradual as they wish.
                 int maximumNumber = 0;
-                while (maximumNumber == 0)
+                while (acceptedMaximumNumber == false)
                 {
-                    Console.Write("Please tell me the upper range I will guess for. My recommendation is 20: ");
+                    Console.Write("Please tell me the highest number I can go for. My recommendation is 20: ");
                     string? userInputMaxGuess = Console.ReadLine();
                     int.TryParse(userInputMaxGuess, out maximumNumber);
-                    if (maximumNumber < 2 || maximumNumber == 0)
+                    if (maximumNumber < 2 )
                     {
                         Console.WriteLine("Sorry, try a number over one(1).\n");
+                    }
+                    else if (maximumNumber >= 2)
+                    {
+                        acceptedMaximumNumber = true;
                     }
                 }
 
@@ -112,6 +117,7 @@ namespace Numb3rGu3ss3r
                                     { GuessWasClose(); }
                                     else { GuessWasTooHigh(); }
                                 }
+
 
                                 attempts++;
                             }
