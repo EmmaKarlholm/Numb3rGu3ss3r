@@ -1,4 +1,5 @@
-﻿using System.Runtime.ExceptionServices;
+﻿using System.ComponentModel.Design;
+using System.Runtime.ExceptionServices;
 
 namespace Numb3rGu3ss3r
 {
@@ -6,6 +7,9 @@ namespace Numb3rGu3ss3r
     {
         static void Main(string[] args)
         {
+            bool testingMode = true; // Set to FALSE before compilation.
+
+
             // Draw title screen, complete with pretty colours.
             Console.WriteLine("\t\tWelcome to");
             Console.BackgroundColor = ConsoleColor.Cyan;
@@ -18,6 +22,9 @@ namespace Numb3rGu3ss3r
             // Set the correctNumber to be a number between 1 and 20
             Random random = new Random();
             int correctNumber = (random.Next(0, 20) + 1); // The 20 here could be made into a variable in future updates.
+
+            // Display the correct number for testing reasons?
+            if (testingMode == true) { Console.WriteLine("correctNumber is " + correctNumber); }
 
 
             // Prepare for user inputs.
@@ -67,12 +74,16 @@ namespace Numb3rGu3ss3r
                         {
                             if (guess < correctNumber)
                             {
-                                Console.WriteLine("You have guessed a value below the correct number.\n");
+                                if (guess == correctNumber - 1)
+                                { GuessWasClose(); }
+                                else { GuessWasTooLow(); }
                             }
 
                             if (guess > correctNumber)
                             {
-                                Console.WriteLine("You have guessed a value above the correct number.\n");
+                                if (guess == correctNumber + 1)
+                                { GuessWasClose(); }
+                                else { GuessWasTooHigh(); }
                             }
                             
                             attempts++;
@@ -114,6 +125,97 @@ namespace Numb3rGu3ss3r
             return (guess, wasConvertable);
         }
 
+
+
+        public static void GuessWasTooHigh()
+        {
+            Random random = new Random();
+            int outputText = random.Next(0, 6);
+            switch (outputText)
+            {
+                case 0:
+                    Console.WriteLine("Your guess went too high.\n");
+                    break;
+
+                case 1:
+                    Console.WriteLine("I'm afraid your number is up in the clouds.\n");
+                    break;
+
+                case 2:
+                    Console.WriteLine("Try something a bit lower.\n");
+                    break;
+
+                case 3:
+                    Console.WriteLine("Haha, that was a bit too high, wasn't it?\n");
+                    break;
+
+                case 4:
+                    Console.WriteLine("Your guess went above the number I was thinking of.\n");
+                    break;
+
+            }
+        }
+
+
+
+        public static void GuessWasTooLow()
+        {
+            Random random = new Random();
+            int outputText = random.Next(0, 6);
+            switch (outputText)
+            {
+                case 0:
+                    Console.WriteLine("You'll have to try something higher than that.\n");
+                    break;
+
+                case 1:
+                    Console.WriteLine("Come on. Aim for the top!\n");
+                    break;
+
+                case 2:
+                    Console.WriteLine("You're lowballing this.\n");
+                    break;
+
+                case 3:
+                    Console.WriteLine("Try something a bit higher.\n");
+                    break;
+
+                case 4:
+                    Console.WriteLine("Your guess went below the number I was thinking of.\n");
+                    break;
+            }
+        }
+
+
+
+
+        public static void GuessWasClose()
+        {
+            Random random = new Random();
+            int outputText = random.Next(0, 6);
+            switch (outputText)
+            {
+                case 0:
+                    Console.WriteLine("You're getting really, really close now.\n");
+                    break;
+
+                case 1:
+                    Console.WriteLine("That number of yours, it's almost it.\n");
+                    break;
+
+                case 2:
+                    Console.WriteLine("Aaaaalmost there!\n");
+                    break;
+
+                case 3:
+                    Console.WriteLine("You're nearly at the number, so push it!\n");
+                    break;
+
+                case 4:
+                    Console.WriteLine("The number I'm thinking of could be your neighbour.\n");
+                    break;
+            }
+        }
     }
 }
 
