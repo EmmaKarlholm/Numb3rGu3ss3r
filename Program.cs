@@ -67,12 +67,12 @@ namespace Numb3rGu3ss3r
                         {
                             if (guess < correctNumber)
                             {
-                                Console.WriteLine("You have guessed a value below the correct number.");
+                                Console.WriteLine("You have guessed a value below the correct number.\n");
                             }
 
                             if (guess > correctNumber)
                             {
-                                Console.WriteLine("You have guessed a value above the correct number.");
+                                Console.WriteLine("You have guessed a value above the correct number.\n");
                             }
                             
                             attempts++;
@@ -108,7 +108,7 @@ namespace Numb3rGu3ss3r
             }
             catch
             {
-                Console.WriteLine("That is not a valid number. Please try again.");
+                Console.WriteLine("That is not a valid number. Please try again.\n");
                 wasConvertable = false;
             }
             return (guess, wasConvertable);
