@@ -1,4 +1,6 @@
-﻿namespace Numb3rGu3ss3r
+﻿using System.Runtime.ExceptionServices;
+
+namespace Numb3rGu3ss3r
 {
     internal class Program
     {
@@ -17,6 +19,7 @@
             Random random = new Random();
             int correctNumber = (random.Next(0, 20) + 1); // The 20 here could be made into a variable in future updates.
 
+
             // Prepare for user inputs.
             int attempts = 0;
             bool numberWasGuessed = false;
@@ -26,7 +29,7 @@
                 {
                     // Using this tuple makes the code unnecessarily difficult to read rather than just handling
                     // everything with a while loop within the NumberInput method like I have done in previous
-                    // assignments But I'm doing this to experiment and to learn just as much as  code to show off
+                    // assignments. But I'm doing this to experiment and to learn just as much as  code to show off
                     // my code, so I want to handle a tuple today!
                     //
                     // First time I use "var" willingly as a consequnce of this tuple, because I need to read an
@@ -36,13 +39,48 @@
                     var (guess, wasConvertable) = NumberInput(attempts);
                     if (wasConvertable == true)
                     {
-                        attempts++;
+                        if (guess == correctNumber)
+                        {
+                            string attemptsString = "";
+                            switch (attempts)
+                            {
+                                case 0: // attempt 1
+                                    attemptsString = "first";
+                                    break;
+                                case 1: // attempt 2
+                                    attemptsString = "second";
+                                    break;
+                                case 2: // attempt 3
+                                    attemptsString = "third";
+                                    break;
+                                case 3: // attempt 4
+                                    attemptsString = "fourth";
+                                    break;
+                                case 4: // attempt 5
+                                    attemptsString = "fifth";
+                                    break;
+                            }
+                            Console.WriteLine($"Congratulations! You guessed my number of {correctNumber} on your {attemptsString} try!\n");
+                            return; // Exits program since the Main method is the top method.
+                        }
+                        else
+                        {
+                            if (guess < correctNumber)
+                            {
+                                Console.WriteLine("You have guessed a value below the correct number.");
+                            }
+
+                            if (guess > correctNumber)
+                            {
+                                Console.WriteLine("You have guessed a value above the correct number.");
+                            }
+                            
+                            attempts++;
+                        }
 
                     }
                 }
-                // 
-                // User has guessed five times without getting the correctNumber.
-                // 
+                
             }
             //
             // User has found the correctNumber.
@@ -73,7 +111,6 @@
                 Console.WriteLine("That is not a valid number. Please try again.");
                 wasConvertable = false;
             }
-            Console.WriteLine("returning " + guess);
             return (guess, wasConvertable);
         }
 
