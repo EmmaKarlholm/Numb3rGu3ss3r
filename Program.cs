@@ -182,23 +182,32 @@ namespace Numb3rGu3ss3r
                 {
                     Console.Clear();
                     Console.Write("\n\n\n\t\tWould you like to play again? (y/n) ");
-                    string? quitGameQuestion = Console.ReadLine();
-                    if (quitGameQuestion == "y" || quitGameQuestion == "yes")
+                    string quitGameQuestion = "";
+                    string? quitGameQuestionInitial = Console.ReadLine();
+                    if (string.IsNullOrEmpty(quitGameQuestionInitial))
                     {
-                        Console.Clear();
-                        break;
-                    }
-                    else if (quitGameQuestion == "n" || quitGameQuestion == "no")
-                    {
-                        quittingGame = true;
-                        break;
+                        InputUnknown();
                     }
                     else
                     {
-                        Console.WriteLine("Sorry, I did not understand your input.");
-                        Thread.Sleep(1500);
+                        quitGameQuestion = quitGameQuestionInitial.ToLower().Trim();
+                        if (quitGameQuestion == "y" || quitGameQuestion == "yes")
+                        {
+                            // User wants to play again. Clear the screen and leave this loop.
+                            Console.Clear();
+                            break;
+                        }
+                        else if (quitGameQuestion == "n" || quitGameQuestion == "no")
+                        {
+                            // User does not want to play again. Set variable accordingly and leave  this loop.
+                            quittingGame = true;
+                            break;
+                        }
+                        else
+                        {
+                            InputUnknown();
+                        }
                     }
-
                 }
             }
 
@@ -395,6 +404,17 @@ namespace Numb3rGu3ss3r
         public static void PressAnyKeyToContinue()
         {
             Console.Write("Press any key to continue...");
+            Console.ReadKey();
+        }
+
+
+
+        // Generic message to user about how their input was not understood.
+        public static void InputUnknown()
+        {
+            Console.WriteLine("\nSorry, I did not understand your input.");
+            Thread.Sleep(500);
+            Console.WriteLine("Please press any key to continue.");
             Console.ReadKey();
         }
     }
