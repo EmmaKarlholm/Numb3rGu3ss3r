@@ -9,7 +9,7 @@ namespace Numb3rGu3ss3r
         {
             bool testingMode = false; // Set to FALSE before upload to GitHub or compilation.
             bool quittingGame = false;
-            while (quittingGame == false)
+            while (!quittingGame)
             {
                 // Set initial gameplay variables which will reset when the game resets.
                 int attempts = 0;
@@ -29,7 +29,7 @@ namespace Numb3rGu3ss3r
 
                 // Allow user to input number to set their own difficulty as gradual as they wish.
                 int maximumNumber = 0;
-                while (acceptedMaximumNumber == false)
+                while (!acceptedMaximumNumber)
                 {
                     Console.Write("Please tell me the highest number I can go for. My recommendation is 20: ");
                     string? userInputMaxGuess = Console.ReadLine();
@@ -53,11 +53,11 @@ namespace Numb3rGu3ss3r
                 int correctNumber = (random.Next(0, maximumNumber) + 1); // The 20 here could be made into a variable in future updates.
 
                 // Display the correct number for testing reasons?
-                if (testingMode == true) { Console.WriteLine("correctNumber is " + correctNumber); }
+                if (testingMode) { Console.WriteLine("correctNumber is " + correctNumber); }
 
 
                 // Prepare for user inputs.
-                while (numberWasGuessed == false)
+                while (!numberWasGuessed)
                 {
                     while (attempts < 5)
                     {
@@ -69,7 +69,7 @@ namespace Numb3rGu3ss3r
                         //
                         // User guesses a number.
                         (int guess, bool wasConvertable) = NumberInput(attempts);
-                        if (wasConvertable == true)
+                        if (wasConvertable)
                         {
                             // Check if user guessed the correctNumber.
                             if (guess == correctNumber)
@@ -128,14 +128,14 @@ namespace Numb3rGu3ss3r
                                     wasFairGuess = false;
                                 }
 
-                                if ((guess < correctNumber) && (wasFairGuess == true))
+                                if ((guess < correctNumber) && (wasFairGuess))
                                 {
                                     if (guess == correctNumber - 1) // Check if user was very close.
                                     { GuessWasClose(); }
                                     else { GuessWasTooLow(); }
                                 }
 
-                                if ((guess > correctNumber) && (wasFairGuess == true))
+                                if ((guess > correctNumber) && (wasFairGuess))
                                 {
                                     if (guess == correctNumber + 1) // Check if user was very close.
                                     { GuessWasClose(); }
@@ -144,7 +144,7 @@ namespace Numb3rGu3ss3r
 
                                 // Lower the amount of guesses the user has available since their guess
                                 // was fair but wrong.
-                                if (wasFairGuess == true)
+                                if (wasFairGuess)
                                 { 
                                     attempts++;
                                 }
@@ -154,7 +154,7 @@ namespace Numb3rGu3ss3r
                     }
 
                     // Five attempts are over, or the correct guess has been made
-                    if (numberWasGuessed == true)
+                    if (numberWasGuessed)
                     {
                         break;
                     }
