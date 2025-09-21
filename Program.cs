@@ -61,16 +61,20 @@ namespace Numb3rGu3ss3r
                 {
                     while (attempts < 5)
                     {
-                        // Using this tuple likely makes the code more difficult to read rather than just handling
-                        // everything with a while loop within the NumberInput method like I have done in previous
+
+                        // Using this tuple likely makes the code more difficult to read rather than just error
+                        // handling with a while loop within the NumberInput method like I have done in previous
                         // assignments. But I'm doing this to experiment and to learn, not just to show off
                         // my code, so I want to handle a tuple today!
-
+                        //
+                        // User guesses a number.
                         (int guess, bool wasConvertable) = NumberInput(attempts);
                         if (wasConvertable == true)
                         {
+                            // Check if user guessed the correctNumber.
                             if (guess == correctNumber)
                             {
+                                // Parse numbers into words for display on screen.
                                 string attemptsString = "";
                                 switch (attempts)
                                 {
@@ -98,18 +102,26 @@ namespace Numb3rGu3ss3r
                                 numberWasGuessed = true;
                                 break;
                             }
+
+                            // User did not guess the correctNumber.
                             else
                             {
+                                // Check if deducting an attempt from the user is fair game.
+                                // It's possible their input could never have been a winning number.
+                                // Assume the guess was fair and then check if this assumption needs
+                                // to be challenged.
                                 bool wasFairGuess = true;
 
-                                // If the user guesses above the stated maximum guessing number, the guess
-                                // was not fair and the user should not be penalised by losing a turn.
+                                // If the user guesses above the stated maximumNumber for guessing, the
+                                // guess was not fair and the user should not be penalised by losing a turn.
                                 if (guess > maximumNumber)
                                 {
                                     GuessWasOutOfRange(maximumNumber);
                                     wasFairGuess = false;
                                 }
 
+                                // If the user guesses 0 or below, the guess was not legal nor fair and
+                                // the user should thus not be penalised by losing a turn.
                                 if (guess <= 0)
                                 {
                                     GuessWasBelowRange();
@@ -118,14 +130,14 @@ namespace Numb3rGu3ss3r
 
                                 if ((guess < correctNumber) && (wasFairGuess == true))
                                 {
-                                    if (guess == correctNumber - 1)
+                                    if (guess == correctNumber - 1) // Check if user was very close.
                                     { GuessWasClose(); }
                                     else { GuessWasTooLow(); }
                                 }
 
                                 if ((guess > correctNumber) && (wasFairGuess == true))
                                 {
-                                    if (guess == correctNumber + 1)
+                                    if (guess == correctNumber + 1) // Check if user was very close.
                                     { GuessWasClose(); }
                                     else { GuessWasTooHigh(); }
                                 }
