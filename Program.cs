@@ -61,16 +61,12 @@ namespace Numb3rGu3ss3r
                 {
                     while (attempts < 5)
                     {
-                        // Using this tuple makes the code unnecessarily difficult to read rather than just handling
+                        // Using this tuple likely makes the code more difficult to read rather than just handling
                         // everything with a while loop within the NumberInput method like I have done in previous
-                        // assignments. But I'm doing this to experiment and to learn just as much as  code to show off
+                        // assignments. But I'm doing this to experiment and to learn, not just to show off
                         // my code, so I want to handle a tuple today!
-                        //
-                        // First time I use "var" willingly as a consequnce of this tuple, because I need to read an
-                        // integer and a boolean value returned from method. If the logic was handled within the
-                        // NumberInput method instead, I wouldn't need to receive two data types (or two variables to
-                        // begin with.
-                        var (guess, wasConvertable) = NumberInput(attempts);
+
+                        (int guess, bool wasConvertable) = NumberInput(attempts);
                         if (wasConvertable == true)
                         {
                             if (guess == correctNumber)
